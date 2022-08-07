@@ -1,4 +1,4 @@
-# 一些使用 docker 与 nginx 模拟的一些nginx常用配置
+# 使用 docker 与 nginx 模拟的一些 nginx 常用配置
 
 ## 说明
 此 demo 使用 docker 展示 nginx 配置
