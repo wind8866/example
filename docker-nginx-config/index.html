@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <button id="btn">request</button>
+  <script>
+    document.querySelector('#btn').addEventListener('click', (e) => {
+      fetch('http://localhost:8088/api.json').then(response => {
+        response.json().then(data => {
+          console.log(data);
+        })
+      })
+    })
+  </script>
+  <br><a href="./dist">跳转到单页应用的相关配置</a>
+</body>
+</html>
