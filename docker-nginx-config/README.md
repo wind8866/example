@@ -32,10 +32,15 @@
 - [x] 将api与index分配到两个不同的文件夹内
 - [x] 只对hash文件配置缓存1年
 - [x] 图片防盗链
-- [ ] http://localhost:9000/dist 会跳到 http://localhost/dist/ 的bug
+- [x] 在单页应用中实现404
 
-- [ ] 在单页应用中实现404
+next
+- [ ] 将单页应用的源码以 git submodules 的方式加入到项目里
+- [ ] 利用Dockerfile缓存镜像
+- [ ] 多阶段构建缓存
+
+nextnext
+- [ ] http://localhost:9000/dist 会跳到 http://localhost/dist/ 的bug
 - [ ] expires作用
 - [ ] 配置 gzip/brotli
-- [ ] 利用Dockerfile缓存镜像
 - [ ] 解释a标签加入`referrerpolicy="no-referrer"`请求头才不携带referrer的问题：[参考](https://www.educative.io/answers/what-is-the-html-a-referrerpolicy-attribute)
