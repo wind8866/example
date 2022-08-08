@@ -5,3 +5,6 @@ body, html {
   width: 100vw;
   background-color: #acf;
 }
+img {
+  width: 320px;
+}

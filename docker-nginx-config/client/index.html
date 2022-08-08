@@ -19,5 +19,17 @@
     })
   </script>
   <br><a href="/dist">跳转到单页应用的相关配置</a>
+  <p>
+    这里有一张没被限制使用的跨域（站外）图片<br>
+    <img src="http://localhost:9001/public.jpeg" alt="">
+  </p>
+  <p>
+    被限制站外使用的图片
+    <img src="http://localhost:9001/private.png" alt=""><br>
+    <a target="_blank" href="http://localhost:9001/private.png">默认a链接会携带referrer</a><br>
+    <a referrerpolicy="no-referrer" target="_blank" href="http://localhost:9001/private.png">
+      需要为a配置 referrerpolicy="no-referrer" 属性
+    </a>
+  </p>
 </body>
 </html>
