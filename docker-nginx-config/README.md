@@ -60,11 +60,11 @@ docker-compose up --build
 - [x] 多阶段构建缓存
 - [x] 写出这个项目的使用说明
 - [x] 为什么`docker-compose up`，停止后，修改了文件再次启动依然是原来的？需要加--build参数
+- [x] 配置 gzip/brotli
+- [x] expires作用：控制缓存时间，设置为 -1即不缓存
 
 next
 - [ ] http://localhost:9000/dist 会跳到 http://localhost/dist/ 的bug
-- [ ] expires作用
-- [ ] 配置 gzip/brotli
 - [ ] 解释a标签加入`referrerpolicy="no-referrer"`请求头才不携带referrer的问题：[参考](https://www.educative.io/answers/what-is-the-html-a-referrerpolicy-attribute)
 
 
