@@ -1,22 +1,39 @@
 # 使用 docker 与 nginx 模拟的一些 nginx 常用配置
 
-# 使用
-1、需要安装 docker 与 node 环境
-2、`cd my-app && yarn`
-TODO
-
 ## 说明
-此 demo 使用 docker 展示 nginx 配置
-需要安装 docker 环境，并在当前目录使用`docker-compose up`启动服务
+此 demo 使用 docker 展示 nginx 常用配置。下面是一些关键代码的功能
 
-- api.conf：
+- server/api.conf：
   - 接口可跨域配置
   - 图片防盗链功能
-- index.conf: <http://localhost:9000/index.html>
-  - 非打包场景的最优缓存配置
-  - 打包场景的最优缓存配置：在dist目录下
-  - 单页应用重写到/dist/index.html，路由交给前端框架处理
   - 隐藏指定文件
+- client/index.conf: <http://localhost:9000/index.html>
+  - 非打包场景的HTTP缓存最优解决方案
+  - 打包场景的HTTP缓存最优解决方案：在dist目录下
+  - 单页应用重写到/dist/index.html，路由交给前端框架处理
+- [my-app](https://gitlab.com/liuzhen1010xyz/my-app-react)
+  - 使用create-react-app构建的单页应用
+  - 以git submodules 的方式作为子项目加入到本项目
+  - 增加了路由，配置了前端控制的404，改变了打包的目标目录
+
+# 使用
+```bash
+# 本地需要安装 docker 环境
+
+# 拉取项目
+git clone https://github.com/wind8866/example.git
+cd example
+
+# 拉取子项目
+git submodule init
+git submodule update
+
+# 启动项目
+cd docker-nginx-config
+docker-compose up --build
+
+# 项目启动后访问 http://localhost:9000
+```
 
 ## 浏览器缓存
 一般浏览器缓存会经过以下3个阶段
@@ -38,15 +55,13 @@ TODO
 - [x] 只对hash文件配置缓存1年
 - [x] 图片防盗链
 - [x] 在单页应用中实现404
-
-next
 - [x] 将单页应用的源码以 git submodules 的方式加入到项目里 [my-app](https://gitlab.com/liuzhen1010xyz/my-app-react#my-app)
 - [x] 利用Dockerfile缓存镜像
 - [x] 多阶段构建缓存
-- [ ] 写出这个项目的使用说明
+- [x] 写出这个项目的使用说明
+- [x] 为什么`docker-compose up`，停止后，修改了文件再次启动依然是原来的？需要加--build参数
 
-nextnext
-- [ ] 为什么`docker-compose up`，停止后，修改了文件再次启动依然是原来的？
+next
 - [ ] http://localhost:9000/dist 会跳到 http://localhost/dist/ 的bug
 - [ ] expires作用
 - [ ] 配置 gzip/brotli
