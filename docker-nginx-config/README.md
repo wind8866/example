@@ -41,11 +41,12 @@ TODO
 
 next
 - [x] 将单页应用的源码以 git submodules 的方式加入到项目里 [my-app](https://gitlab.com/liuzhen1010xyz/my-app-react#my-app)
-- [ ] 利用Dockerfile缓存镜像
-- [ ] 多阶段构建缓存
+- [x] 利用Dockerfile缓存镜像
+- [x] 多阶段构建缓存
 - [ ] 写出这个项目的使用说明
 
 nextnext
+- [ ] 为什么`docker-compose up`，停止后，修改了文件再次启动依然是原来的？
 - [ ] http://localhost:9000/dist 会跳到 http://localhost/dist/ 的bug
 - [ ] expires作用
 - [ ] 配置 gzip/brotli
