@@ -1,5 +1,10 @@
 # 使用 docker 与 nginx 模拟的一些 nginx 常用配置
 
+# 使用
+1、需要安装 docker 与 node 环境
+2、`cd my-app && yarn`
+TODO
+
 ## 说明
 此 demo 使用 docker 展示 nginx 配置
 需要安装 docker 环境，并在当前目录使用`docker-compose up`启动服务
@@ -35,12 +40,18 @@
 - [x] 在单页应用中实现404
 
 next
-- [ ] 将单页应用的源码以 git submodules 的方式加入到项目里
+- [x] 将单页应用的源码以 git submodules 的方式加入到项目里 [my-app](https://gitlab.com/liuzhen1010xyz/my-app-react#my-app)
 - [ ] 利用Dockerfile缓存镜像
 - [ ] 多阶段构建缓存
+- [ ] 写出这个项目的使用说明
 
 nextnext
 - [ ] http://localhost:9000/dist 会跳到 http://localhost/dist/ 的bug
 - [ ] expires作用
 - [ ] 配置 gzip/brotli
 - [ ] 解释a标签加入`referrerpolicy="no-referrer"`请求头才不携带referrer的问题：[参考](https://www.educative.io/answers/what-is-the-html-a-referrerpolicy-attribute)
+
+
+
+
+git submodule add https://gitlab.com/liuzhen1010xyz/my-app-react.git my-app
