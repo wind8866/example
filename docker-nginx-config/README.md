@@ -64,6 +64,7 @@ docker-compose up --build
 - [x] expires作用：控制缓存时间，设置为 -1即不缓存
 
 next
+- [ ] 忽略 docker 忽略 my-app 下的node_modules和build
 - [ ] http://localhost:9000/dist 会跳到 http://localhost/dist/ 的bug
 - [ ] 解释a标签加入`referrerpolicy="no-referrer"`请求头才不携带referrer的问题：[参考](https://www.educative.io/answers/what-is-the-html-a-referrerpolicy-attribute)
 

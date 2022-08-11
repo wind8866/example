@@ -10,7 +10,7 @@ COPY my-app/package.json my-app/yarn.lock /code/
 RUN yarn config set registry https://registry.npm.taobao.org && yarn
 
 COPY my-app /code
-RUN npm run build
+RUN npm run build:dist
 
 FROM nginx:alpine
 COPY --from=nodebuilder code/build /usr/share/nginx/html/dist
