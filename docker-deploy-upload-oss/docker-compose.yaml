@@ -4,5 +4,9 @@ services:
     build: 
       context: .
       dockerfile: ./Dockerfile
+      args:
+        - ACCESS_KEY_ID
+        - ACCESS_KEY_SECRET
+        - ENDPOINT=oss-cn-hongkong.aliyuncs.com
     ports:
       - "9100:80"
