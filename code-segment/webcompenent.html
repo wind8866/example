@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>web component</title>
+</head>
+
+<body>
+  <div class="btn-wrapper">外部的btn-wrapper</div>
+  <template id="btn-template">
+    <span id="icon"></span>
+    <slot name="btn-content"></slot>
+    <style>
+      .btn-wrapper {
+        display: inline-block;
+        border: 1px solid;
+        padding: 0.5em 0.7em;
+        cursor: pointer;
+        border-radius: 6px;
+        color: #fff;
+      }
+    </style>
+  </template>
+  <l-button id="primary" type="primary">
+    <span slot="btn-content">button</span>
+  </l-button>
+  <l-button type="warning" icon="📤">push</l-button>
+  <l-button type="disabled"><i>disabled</i></l-button>
+  <script>
+    class LButton extends HTMLElement {
+      constructor() {
+        super()
+        const template = document.querySelector('#btn-template')
+        const shadow = this.attachShadow({ mode: 'open' })
+
+        // const icon = template.querySelector('#icon')
+        // icon.innerText = this.getAttribute('icon') ?? ''
+        // this.#icon = icon
+
+        const root = document.createElement('span')
+        root.classList.add('btn-wrapper')
+        root.appendChild(template.content.cloneNode(true))
+
+        const type = this.getAttribute('type')
+        
+        const colorDic = {
+          primary: '#06c',
+          warning: '#f00',
+          disabled: '#f0f0f0'
+        }
+        // this.defaultHTML = this.innerHTML
+        // root.innerHTML = icon + this.defaultHTML
+        // background: ${ colorDic[type] };
+        shadow.appendChild(root)
+      }
+      #icon
+      get icon() {
+        return this.#icon
+      }
+      set icon(newValue) {
+        console.log(newValue)
+        this.#icon = newValue
+        this.shadowRoot.querySelector('.btn-wrapper').innerHTML = newValue + this.defaultHTML
+      }
+      static get observedAttributes() {
+        return ['icon']
+      }
+      attributeChangedCallback(name, oldValue, newValue) {
+        console.log('changed.', name, oldValue, newValue)
+        if (name === 'icon') {
+          this.icon = newValue
+        }
+      }
+    }
+    customElements.define('l-button', LButton)
+
+    document.querySelector('#primary').addEventListener('click', (e) => {
+      let i = 0
+      let loop = setInterval(() => {
+        if (i === 10) clearInterval(loop)
+        e.target.setAttribute('icon', ++i % 2 === 0 ? '⏳' : '⌛️')
+      }, 1000)
+    }, false)
+  </script>
+</body>
+
+</html>
