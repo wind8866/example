@@ -6,9 +6,9 @@
 查看 [dashedboard](http://127.0.0.1:8080/dashboard/#/)，在HTTP标签页可发现三个规则：
 /：8080接口，dashedboard
 /api：8080接口，可访问[rawdata](http://localhost:8080/api/rawdata)
-Host(`traefik-traefik`)：不知道是什么
+Host(`traefik-traefik`)：不知道是什么❓
 
-按理说`traefik-traefik`应该可以使用`curl -H Host:traefik-traefik http://127.0.0.1`访问，但可能没有首页地址。
+按理说`traefik-traefik`应该可以使用`curl -H Host:traefik-traefik http://127.0.0.1`访问，但可能没有首页地址无法知道这个是什么服务。
 
 **二、**
 在howami目录运行`docker-compose up`
@@ -21,6 +21,8 @@ Host(`traefik-traefik`)：不知道是什么
 
 [默认配置文件](https://raw.githubusercontent.com/traefik/traefik/master/traefik.sample.toml)
 
+docker-compose配置中[valumes](https://docs.docker.com/engine/reference/builder/#volume)会在容器内部挂在到容器的指定位置，所以容器内部的写入会同步到外部，反之亦然。
+所以可以看到/log下的两个日志内容
 
 rawdata文件的一些参数
 ```json

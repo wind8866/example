@@ -8,6 +8,7 @@ services:
       - "80:80"
       - "8080:8080"
     volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml
+      - ./acme.json:/acme.json
+      - ./log:/log
       - /var/run/docker.sock:/var/run/docker.sock
-
-# 本容器监听了 80 与 8080 端口，可在 http://127.0.0.1:8080/dashboard/#/ 查看

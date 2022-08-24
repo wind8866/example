@@ -52,14 +52,14 @@
   # Optional
   # Default: os.Stdout
   #
-  # filePath = "log/traefik.log"
+  filePath = "log/traefik.log"
 
   # Format is either "json" or "common".
   #
   # Optional
   # Default: "common"
   #
-  # format = "json"
+  format = "json"
 
 ################################################################
 # Access logs configuration
@@ -71,7 +71,7 @@
 #
 # Optional
 #
-# [accessLog]
+[accessLog]
 
   # Sets the file path for the access log. If not specified, stdout will be used.
   # Intermediate directories are created if necessary.
@@ -79,14 +79,19 @@
   # Optional
   # Default: os.Stdout
   #
-  # filePath = "/path/to/log/log.txt"
+  filePath = "log/traefik-access.json"
 
   # Format is either "json" or "common".
   #
   # Optional
   # Default: "common"
   #
-  # format = "json"
+  format = "json"
+
+  [accessLog.fields]
+    defaultMode = "keep"
+  [accessLog.fields.headers]
+    defaultMode = "keep"
 
 ################################################################
 # API and dashboard configuration
@@ -100,14 +105,14 @@
   # Optional
   # Default: false
   #
-  # insecure = true
+  insecure = true
 
   # Enabled Dashboard
   #
   # Optional
   # Default: true
   #
-  # dashboard = false
+  dashboard = true
 
 ################################################################
 # Ping configuration
