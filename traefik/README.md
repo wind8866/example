@@ -11,7 +11,7 @@ Host(`traefik-traefik`)：不知道是什么❓
 按理说`traefik-traefik`应该可以使用`curl -H Host:traefik-traefik http://127.0.0.1`访问，但可能没有首页地址无法知道这个是什么服务。
 
 **二、**
-在howami目录运行`docker-compose up`
+在whoami目录运行`docker-compose up`
 再次查看dashedboard和rawdata接口可查看区别
 使用`curl -H Host:whoami.docker.localhost http://127.0.0.1`可访问到服务的内容。
 
@@ -69,10 +69,10 @@ services:
 ### "traefik.http.routers.whoami.rule=Host(`whoami.shanyue.local`)" 为什么能使宿主机可访问该域名？
 并不能直接通过域名访问到whoami服务，只能通过访问本地127.0.0.1并配置Host请求头访问。而且这个Host字段并不是一个合格的域名（没有local顶级域名）。我个人理解这个只是一个标记，否则另一个服务（例如whoisshe）也监听80端口，你通过127.0.0.1，traefik不知道应该发给哪个服务，这和早期的虚拟主机有点像。如果我手动配置`/whoami`转发并重写到whoami服务首页或许就不需要再使用Host请求头了。
 
-### howami中配置network的意义是什么？
+### whoami中配置network的意义是什么？
 该属性属于docker-compose的配置，使用同一个网络名称的服务可以相互访问，否则不能相互访问。[详见](https://docs.docker.com/compose/networking/#specify-custom-networks)
 
-经测试（注释掉[这几行](https://github.com/wind8866/example/blob/main/traefik/howami/docker-compose.yml#L8-L11)）没有networks，不能通过127.0.0.1访问到whoami服务，也就是说traefik无法代理whoami
+经测试（注释掉[这几行](https://github.com/wind8866/example/blob/main/traefik/whoami/docker-compose.yml#L8-L11)）没有networks，不能通过127.0.0.1访问到whoami服务，也就是说traefik无法代理whoami
 
 ### [docker label的使用](https://docs.docker.com/engine/reference/commandline/run/#set-metadata-on-container--l---label---label-file)
 标签是一种将元数据应用于 Docker 对象的机制，Traefik自动读取容器的标签生成动态配置来更新路由规则。
@@ -112,7 +112,7 @@ docker-compose配置中[valumes](https://docs.docker.com/engine/reference/builde
 		},
 		"whoami@docker": {
 			"entryPoints": ["http"],
-			"service": "whoami-howami",
+			"service": "whoami-whoami",
 			"rule": "Host(`whoami.docker.localhost`)",
 			"status": "enabled",
 			"using": ["http"]
@@ -161,7 +161,7 @@ docker-compose配置中[valumes](https://docs.docker.com/engine/reference/builde
 				"http://172.24.0.2:80": "UP"
 			}
 		},
-		"whoami-howami@docker": {
+		"whoami-whoami@docker": {
 			"loadBalancer": {
 				"servers": [{
 					"url": "http://172.25.0.2:80"
