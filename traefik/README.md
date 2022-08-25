@@ -35,8 +35,9 @@ docker-compose up -d --scale whoami=2
 参考[More Instances? Traefik Load Balances Them](https://doc.traefik.io/traefik/getting-started/quick-start/#more-instances-traefik-load-balances-them)
 
 **服务监控管理**
-[dashedboard](http://127.0.0.1:8080/dashboard/#/)
-<http://localhost:8080/api/rawdata>查看原始数据
+dashedboard：<http://127.0.0.1:8080/dashboard/#/>
+
+查看rawdata原始数据：<http://localhost:8080/api/rawdata>
 
 
 ## Traefix是如何做到的
@@ -49,7 +50,10 @@ Traefik使用容器标签container labels检测路由配置
 传统的路由需要配置，traefik从服务本身获取，检测服务并更新路由规则
 配置分为静态配置和动态配置，前者定义具体处理方式，后者从镜像（标签）中提取配置。
 定义具体处理方式有：配置文件(覆盖`/etc/traefik/traefik.toml`)、在命令行参数、环境变量
-可以使用docker run traefik —help 查看命令行支持的参数
+
+可以使用`docker run traefik -help` 查看命令行支持的参数。
+--api.insecure=true：启用 web UI
+--providers.docker：用来自动发现平台上的服务，这里应该是明确发现docker服务
 
 **docker是怎样发现服务的**
 Traefik 能够使用您的集群 API 来发现服务并读取附加信息。在 Traefik，这些连接器被称为提供者，因为它们为 Traefik 提供配置。
@@ -67,7 +71,7 @@ services:
 
 ## 其他
 ### "traefik.http.routers.whoami.rule=Host(`whoami.shanyue.local`)" 为什么能使宿主机可访问该域名？
-并不能直接通过域名访问到whoami服务，只能通过访问本地127.0.0.1并配置Host请求头访问。而且这个Host字段并不是一个合格的域名（没有local顶级域名）。我个人理解这个只是一个标记，否则另一个服务（例如whoisshe）也监听80端口，你通过127.0.0.1，traefik不知道应该发给哪个服务，这和早期的虚拟主机有点像。如果我手动配置`/whoami`转发并重写到whoami服务首页或许就不需要再使用Host请求头了。
+并不能直接通过域名访问到whoami服务，只能通过访问本地127.0.0.1并配置Host请求头访问。而且这个Host字段并不是一个合格的域名（没有local顶级域名）。我个人理解这个只是一个标记❓，否则另一个服务（例如whoisshe）也监听80端口，你通过127.0.0.1，traefik不知道应该发给哪个服务，这和早期的虚拟主机有点像。如果我手动配置`/whoami`转发并重写到whoami服务首页或许就不需要再使用Host请求头了。
 
 ### whoami中配置network的意义是什么？
 该属性属于docker-compose的配置，使用同一个网络名称的服务可以相互访问，否则不能相互访问。[详见](https://docs.docker.com/compose/networking/#specify-custom-networks)
@@ -83,6 +87,9 @@ docker-compose配置中[valumes](https://docs.docker.com/engine/reference/builde
 
 
 ### rawdata文件的一些参数
+
+<details>
+<summary>json数据</summary>
 ```json
 {
 	"routers": {
@@ -177,3 +184,10 @@ docker-compose配置中[valumes](https://docs.docker.com/engine/reference/builde
 	}
 }
 ```
+</details>
+
+### 参考资料
+- [山月-服务编排: 服务发现与 Traefik 网关搭建](https://q.shanyue.tech/deploy/traefik.html)
+- [官方文档](https://doc.traefik.io/traefik/getting-started/quick-start/)
+- [Traefik 科普](https://juejin.cn/post/7127571970819883015)
+- [什么是云原生？这回终于有人讲明白了](https://juejin.cn/post/6844904197859590151)
