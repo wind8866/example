@@ -4,7 +4,9 @@ services:
   whoami:
     image: traefik/whoami
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      - "traefik.http.routers.local.rule=Host(`local.wind8866.io`)"
+      - traefik.http.routers.local.tls=true
+      - traefik.http.routers.local.tls.certresolver=le
 networks:
   default:
     external:

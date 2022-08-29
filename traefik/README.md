@@ -13,7 +13,8 @@ Host(`traefik-traefik`)：不知道是什么❓
 **二、**
 在whoami目录运行`docker-compose up`
 再次查看dashedboard和rawdata接口可查看区别
-使用`curl -H Host:whoami.docker.localhost http://127.0.0.1`可访问到服务的内容。
+使用`curl -H Host:local.wind8866.io http://127.0.0.1`可访问到服务的内容。
+或者修改本地`/etc/hosts`加入`127.0.0.1 local.wind8866.io`
 
 
 ## Traefix可以做什么
@@ -66,7 +67,7 @@ services:
   whoami:
     image: traefik/whoami
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      - "traefik.http.routers.whoami.rule=Host(`local.wind8866.io`)"
 ```
 
 ## 其他
@@ -120,7 +121,7 @@ docker-compose配置中[valumes](https://docs.docker.com/engine/reference/builde
 		"whoami@docker": {
 			"entryPoints": ["http"],
 			"service": "whoami-whoami",
-			"rule": "Host(`whoami.docker.localhost`)",
+			"rule": "Host(`local.wind8866.io`)",
 			"status": "enabled",
 			"using": ["http"]
 		}
