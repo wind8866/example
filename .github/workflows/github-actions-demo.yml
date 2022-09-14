@@ -9,10 +9,10 @@ jobs:
       - run: echo "${{ github.repository }} 仓库下的 ${{ github.ref }} 分支"
       - name: Check out repository code # ？这里应该只是一个标注吧
         uses: actions/checkout@v3 # ？github提供的自动拉取仓库代码到镜像的代码？
-      - name: 列出当前存储库中的文件
+      - name: 
         run: |
           ls ${{ github.workspace }}
-      - run: 本次job的状态 ${{ job.status }}"
+      - run: echo "本次job的状态 ${{ job.status }}"
       - run: echo "是否在CI中 ${{ CI }}"
       - run: echo "当前分支 ${{ GITHUB_REF_NAME }}"
       - run: echo "这个环境变量是在github配置中设置的 ${{ PASS_WORD }}"
