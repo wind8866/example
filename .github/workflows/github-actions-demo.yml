@@ -2,7 +2,9 @@ name: GitHub Actions Demo
 on: [push]
 jobs:
   Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestenv:
+    env:
+      Greeting: uat
     steps:
       - run: echo "事件：${{ github.event_name }}"
       - run: echo "当前系统：${{ runner.os }}"
