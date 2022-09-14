@@ -12,10 +12,10 @@ jobs:
       - name: 列出当前存储库中的文件
         run: |
           ls ${{ github.workspace }}
-      - run: 本次job的状态：${{ job.status }}"
-      - run: echo "是否在CI中：$CI"
-      - run: echo "当前分支：$GITHUB_REF_NAME"
-      - run: echo "这个环境变量是在github配置中设置的：$PASS_WORD"
-      - run: echo "这个环境变量是在项目根目录的.env中读取的：$USER_NAME"
-      - run: echo "尝试读取linux中的环境变量：$HOME"
+      - run: 本次job的状态 ${{ job.status }}"
+      - run: echo "是否在CI中 ${{ CI }}"
+      - run: echo "当前分支 ${{ GITHUB_REF_NAME }}"
+      - run: echo "这个环境变量是在github配置中设置的 ${{ PASS_WORD }}"
+      - run: echo "这个环境变量是在项目根目录的.env中读取的 ${{ USER_NAME }}"
+      - run: echo "尝试读取linux中的环境变量 ${{ HOME }}"
 
