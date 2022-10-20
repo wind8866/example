@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lift逻辑</title>
+</head>
+<body>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .build {
+    /* outline: 1px solid #333; */
+    margin: 100px;
+    position: relative;
+  }
+  .level {
+    width: 100px;
+    height: 100px;
+    outline: 1px dashed #999;
+    position: relative;
+  }
+  .lift {
+    width: 50px;
+    height: 100px;
+    background: #fac;
+    position: absolute;
+    left: 100px;
+    bottom: 0;
+  }
+  .status-light {
+    position: absolute;
+    left: 120px;
+    background: #888;
+  }
+
+</style>
+<div class="build">
+  <div class="level level5">5
+    <button class="down" onclick="downEvent()" data-level="5">down</button>
+  </div>
+  <div class="level level4">4
+    <button class="up" onclick="upEvent()" data-level="4">up</button>
+    <button class="down" onclick="downEvent()" data-level="4">down</button>
+  </div>
+  <div class="level level3">3
+    <button class="up" onclick="upEvent()" data-level="3">up</button>
+    <button class="down" onclick="downEvent()" data-level="3">down</button>
+  </div>
+  <div class="level level2">2
+    <button class="up" onclick="upEvent()" data-level="2">up</button>
+    <button class="down" onclick="downEvent()" data-level="2">down</button>
+  </div>
+  <div class="level level1">1
+    <button class="up" onclick="upEvent()" data-level="1">up</button>
+  </div>
+  <div class="lift" style="bottom: 0">
+    <button class="a1" onclick="goLevelEvent()" data-level="1">1</button>
+    <button class="a2" onclick="goLevelEvent()" data-level="2">2</button>
+    <button class="a3" onclick="goLevelEvent()" data-level="3">3</button>
+    <button class="a4" onclick="goLevelEvent()" data-level="4">4</button>
+    <button class="a5" onclick="goLevelEvent()" data-level="5">5</button>
+    <div class="status"></div>
+  </div>
+</div>
+<script>
+  const liftStatusDom = document.querySelector('.status')
+  const liftDom = document.querySelector('.lift')
+
+  class Lift {
+    constructor(dom, maxLevel) {
+      this.dom = dom
+      this.maxLevel = maxLevel
+      this.bottom = parseInt(dom.style.bottom)
+      this.currentLevel = this.bottom / 100
+    }
+    status = {
+      level: 1,
+      status: 'await'// up, down, state
+    }
+    gotoLevel(level) {
+      this.run((parseInt(level) - 1) * 100)
+    }
+    run(targetBottom) {
+      console.log(targetBottom)
+      const that = this
+      const runTime = setInterval(() => {
+        const sign = this.bottom > targetBottom ? -1 : 1
+        if (this.bottom === targetBottom) {
+          clearInterval(runTime)
+        } else {
+          const target = this.bottom + sign * 2
+          this.dom.style.bottom = `${target}px`
+          this.bottom = target
+        }
+      }, 30)
+    }
+  }
+  const lift = new Lift(liftDom, 5)
+
+  function downEvent(event) {
+    const currentDom = this.event.currentTarget
+    console.log('down', currentDom.dataset.level);
+    lift.gotoLevel(currentDom.dataset.level)
+  }
+  function upEvent(event) {
+    const currentDom = this.event.currentTarget
+    console.log('up', currentDom.dataset.level);
+    lift.gotoLevel(currentDom.dataset.level)
+  }
+  function goLevelEvent(event) {
+    const currentDom = this.event.currentTarget
+    console.log('go', currentDom.dataset.level);
+    lift.gotoLevel(currentDom.dataset.level)
+  }
+</script>
+</body>
+</html>
