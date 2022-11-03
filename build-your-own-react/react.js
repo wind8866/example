@@ -21,13 +21,20 @@ function createTextElement(text) {
   }
 }
 
+function commitRoot() {
+  // TODO add nodes to dom
+}
 
 let nextUnitOfWork = null // 当前等待执行的工作单元
+let wipRoot = null
 function workLoop(deadline) {
   let shouldYield = false // 是否有同步执行任务
   while (nextUnitOfWork && !shouldYield) {
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork)// 执行工作单元
     shouldYield = deadline.timeRemaining() < 1 // 时间线上的任务剩余时间小于1，认为有同步执行的任务
+  }
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot()
   }
   requestIdleCallback(workLoop)// 任务队列为空 || 有同步任务时 推迟到下一浏览器空闲时执行
 }
@@ -38,9 +45,7 @@ function performUnitOfWork(fiber) {
   if (!fiber.dom) {
     fiber.dom = createDom(fiber)
   }
-  if (fiber.parent) {
-    fiber.parent.dom.appendChild(fiber.dom)
-  }
+  
 
   // 创建新Fiber
   const elements = fiber.props.children
@@ -92,12 +97,13 @@ function createDom(fiber) {
   return dom
 }
 function render(element, container) {
-  nextUnitOfWork = {
+  wipRoot = {
     dom: container,
     props: {
       children: [element]
     }
   }
+  nextUnitOfWork = wipRoot
 }
 const Didact = {
   createElement,
