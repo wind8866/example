@@ -22,11 +22,24 @@ function createTextElement(text) {
 }
 
 function commitRoot() {
-  // TODO add nodes to dom
+  commitWork(wipRoot.child)
+  currentRoot = wipRoot
+  wipRoot = null
+}
+
+function commitWork(fiber) {
+  if (!fiber) {
+    return
+  }
+  const domParent = fiber.parent.dom
+  domParent.appendChild(fiber.dom)
+  commitWork(fiber.child)
+  commitWork(fiber.sibling)
 }
 
 let nextUnitOfWork = null // 当前等待执行的工作单元
-let wipRoot = null
+let wipRoot = null // 待处理的Fiber
+let currentRoot = null // 最后一次渲染的Fiber
 function workLoop(deadline) {
   let shouldYield = false // 是否有同步执行任务
   while (nextUnitOfWork && !shouldYield) {
@@ -46,7 +59,6 @@ function performUnitOfWork(fiber) {
     fiber.dom = createDom(fiber)
   }
   
-
   // 创建新Fiber
   const elements = fiber.props.children
   let index = 0
@@ -101,7 +113,8 @@ function render(element, container) {
     dom: container,
     props: {
       children: [element]
-    }
+    },
+    alternate: currentRoot,// 待替换的Fiber？
   }
   nextUnitOfWork = wipRoot
 }
@@ -109,12 +122,9 @@ const Didact = {
   createElement,
   render,
 }
-const element = Didact.createElement(
-  "div",
-  { id: "foo" },
-  Didact.createElement("a", null, "bar"),
-  Didact.createElement("b")
-)
+
+
+// 如果有babel，可以写成这样
 /** @jsx Didact.createElement */
 // const element = (
 //   <div id="foo">
@@ -122,5 +132,14 @@ const element = Didact.createElement(
 //     <b />
 //   </div>
 // )
+
+// 没有的话模拟变成这样
+const element = Didact.createElement(
+  "div",
+  { id: "foo" },
+  Didact.createElement("a", null, "bar"),
+  Didact.createElement("b")
+)
+
 const container = document.getElementById("root")
 Didact.render(element, container)
