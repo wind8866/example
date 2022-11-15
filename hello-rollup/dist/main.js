@@ -7,10 +7,17 @@ function a (text) {
   console.log(obj, clone, text);
 }
 
+var common = {};
+
+const name = 'zangsan';
+const age = 18;
+common.name = name;
+common.getAge = function(){
+    return age
+};
+
 console.log(lodash.VERSION);
 a('main2');
 
-
-// import common from './common'
-// console.log(common.name)
-// console.log(common.getAge())
+console.log(common.name);
+console.log(common.getAge());
