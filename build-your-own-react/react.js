@@ -37,21 +37,6 @@ function commitWork(fiber) {
   commitWork(fiber.sibling)
 }
 
-let nextUnitOfWork = null // 当前等待执行的工作单元
-let wipRoot = null // 待处理的Fiber
-let currentRoot = null // 最后一次渲染的Fiber
-function workLoop(deadline) {
-  let shouldYield = false // 是否有同步执行任务
-  while (nextUnitOfWork && !shouldYield) {
-    nextUnitOfWork = performUnitOfWork(nextUnitOfWork)// 执行工作单元
-    shouldYield = deadline.timeRemaining() < 1 // 时间线上的任务剩余时间小于1，认为有同步执行的任务
-  }
-  if (!nextUnitOfWork && wipRoot) {
-    commitRoot()
-  }
-  requestIdleCallback(workLoop)// 任务队列为空 || 有同步任务时 推迟到下一浏览器空闲时执行
-}
-requestIdleCallback(workLoop)// React中使用scheduler package
 
 function performUnitOfWork(fiber) {
   // 增加节点
@@ -95,6 +80,29 @@ function performUnitOfWork(fiber) {
 
 
 
+
+let nextUnitOfWork = null // 当前等待执行的工作单元
+let wipRoot = null // 待处理的Fiber
+let currentRoot = null // 最后一次渲染的Fiber
+const Didact = {
+  createElement,
+  render,
+}
+requestIdleCallback(workLoop)// 循环事件入口
+
+// render 入口函数
+function render(element, container) {
+  wipRoot = {
+    dom: container,
+    props: {
+      children: [element]
+    },
+    alternate: currentRoot,// 📌现在还没用到
+  }
+  nextUnitOfWork = wipRoot// 设置dom树，触发循环任务
+}
+
+// 根据输入的参数创建dom树
 function createDom(fiber) {
   const dom = fiber.type == "TEXT_ELEMENT" ?
     document.createTextNode("") :
@@ -108,38 +116,41 @@ function createDom(fiber) {
     })
   return dom
 }
-function render(element, container) {
-  wipRoot = {
-    dom: container,
-    props: {
-      children: [element]
-    },
-    alternate: currentRoot,// 待替换的Fiber？
+
+// 递归调用，循环接收并执行任务
+function workLoop(deadline) {
+  let shouldYield = false // 是否有同步执行任务
+  while (nextUnitOfWork && !shouldYield) {
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork)// 执行工作单元
+    shouldYield = deadline.timeRemaining() < 1 // 时间线上的任务剩余时间小于1，认为有同步执行的任务
   }
-  nextUnitOfWork = wipRoot
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot()
+  }
+  requestIdleCallback(workLoop)// 任务队列为空 || 有同步任务时 推迟到下一浏览器空闲时执行
 }
-const Didact = {
-  createElement,
-  render,
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 模拟调用
+function main () {
+  const element = Didact.createElement(
+    "div",
+    { id: "foo" },
+    Didact.createElement("a", null, "bar"),
+    Didact.createElement("b")
+  )
+  const container = document.getElementById("root")
+  Didact.render(element, container)
 }
-
-
-// 如果有babel，可以写成这样
-/** @jsx Didact.createElement */
-// const element = (
-//   <div id="foo">
-//     <a>bar</a>
-//     <b />
-//   </div>
-// )
-
-// 没有的话模拟变成这样
-const element = Didact.createElement(
-  "div",
-  { id: "foo" },
-  Didact.createElement("a", null, "bar"),
-  Didact.createElement("b")
-)
-
-const container = document.getElementById("root")
-Didact.render(element, container)
+main()
