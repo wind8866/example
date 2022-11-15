@@ -1,0 +1,13 @@
+{
+  "name": "rollup",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "rollup": "^3.3.0"
+  }
+}
