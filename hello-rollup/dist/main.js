@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import { l as lodash } from './lodash-f4c1e262.js';
 
 function a (text) {
   const obj = { a: 12 };

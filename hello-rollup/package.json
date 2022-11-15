@@ -7,8 +7,11 @@
     "build": "rollup -c"
   },
   "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
     "@rollup/plugin-commonjs": "^23.0.2",
-    "lodash": "^4.17.21",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "rollup": "^3.3.0"
   }
 }
