@@ -7,10 +7,15 @@
 
 默认不支持 commonjs
 
-插件：
-`@rollup/plugin-node-resolve` 识别commonjs
-`@rollup/plugin-node-decision`
-`@rollup/plugin-commonjs` 将commonjs类型文件转化为es modules支持的文件，示例中的common.js
+devDependencies:
+- `@babel/cli`: 
+- `@babel/core`: 
+- `@babel/preset-env`: 
+- `@rollup/plugin-babel`: 使rollup支持babel
+- `@rollup/plugin-commonjs`: 将commonjs类型文件转化为es modules支持的文件，示例中的common.js
+- `@rollup/plugin-node-resolve`:
+- `@rollup/plugin-typescript`: 
+- `rollup`: 
 
 1. [使用Rollup打包JavaScript](https://juejin.cn/post/6844903570974703629)
 2. [ESM打包工具-Rollup](https://juejin.cn/post/6902059571666223112)
