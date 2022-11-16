@@ -6,6 +6,7 @@ import babel from '@rollup/plugin-babel'
 
 export default defineConfig({
   input: './src/main.js',
+  external: ['lodash'],
   plugins: [
     // rollupTypescript(),
     babel({
@@ -16,8 +17,8 @@ export default defineConfig({
     resolve(),
   ],
   output: {
-    manualChunks: {
-      lodash: ['lodash'],
+    globals: {
+      lodash: 'lodash'
     },
     dir: 'dist',
     format: 'esm'
