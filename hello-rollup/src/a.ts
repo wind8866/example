@@ -1,6 +1,6 @@
 import lodash from 'lodash'
 
-function a (text) {
+function a (text: unknown) {
   const obj = { a: 12 }
   const clone = lodash.clone(obj)
   clone.a = 14

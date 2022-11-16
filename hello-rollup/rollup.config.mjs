@@ -1,20 +1,20 @@
 import { defineConfig } from 'rollup'
-import commonjs from '@rollup/plugin-commonjs'
-import resolve from '@rollup/plugin-node-resolve'
-// import rollupTypescript from '@rollup/plugin-typescript'
-import babel from '@rollup/plugin-babel'
+import commonjsPlugin from '@rollup/plugin-commonjs'
+import resolvePlugin from '@rollup/plugin-node-resolve'
+import typescriptPlugin from '@rollup/plugin-typescript'
+import babelPlugin from '@rollup/plugin-babel'
 
 export default defineConfig({
-  input: './src/main.js',
+  input: './src/main.ts',
   external: ['lodash'],
   plugins: [
-    // rollupTypescript(),
-    babel({
+    typescriptPlugin(),
+    babelPlugin({
       exclude: '**/node_modules/**',
       babelHelpers: 'bundled'
     }),
-    commonjs(),
-    resolve(),
+    commonjsPlugin(),
+    resolvePlugin(),
   ],
   output: {
     globals: {

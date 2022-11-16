@@ -29,3 +29,8 @@ devDependencies:
 
 [Vite当前可用于生产吗，对比webpack有什么不足吗?](https://www.zhihu.com/question/447025978)
 [vite多久后能干掉webpack？](https://www.zhihu.com/question/477139054)
+
+TODO:
+- [ ] plugins顺序
+- [ ] 所有依赖的作用
+- [ ] 各种模块的知识，d.ts怎么写？
