@@ -1,5 +1,10 @@
 import lodash from 'lodash'
 import aFun from './a'
+import isObject from 'isobject'
+
+if (isObject({})) {
+  console.log('object')
+}
 
 console.log(lodash.VERSION)
 aFun('main2')

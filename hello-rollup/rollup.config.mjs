@@ -1,12 +1,12 @@
 import { defineConfig } from 'rollup'
-import commonjsPlugin from '@rollup/plugin-commonjs'
-import resolvePlugin from '@rollup/plugin-node-resolve'
-import typescriptPlugin from '@rollup/plugin-typescript'
+import commonjs from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
+import typescript from '@rollup/plugin-typescript'
 import replace from 'rollup-plugin-replace'
-import babelPlugin from '@rollup/plugin-babel'
+import babel from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
-const env = process.env.NODE_ENV
 
+const env = process.env.NODE_ENV
 
 if (process.env.prd) {
   console.log('生产环境')
@@ -17,23 +17,24 @@ const config = {
   input: './src/main.ts',
   external: ['lodash'],
   plugins: [
+    commonjs(),
+    typescript(),
+    babel({
+      babelHelpers: 'bundled',
+      exclude: '**/node_modules/**'
+    }),
+    resolve(),
     replace({
       'process.env.NODE_ENV': JSON.stringify(env)
     }),
-    typescriptPlugin(),
-    babelPlugin({
-      exclude: '**/node_modules/**',
-      babelHelpers: 'bundled'
-    }),
-    commonjsPlugin(),
-    resolvePlugin(),
     // terser(),
   ],
   output: {
     globals: {
       lodash: 'lodash'
     },
-    dir: 'dist',
+    file: 'dist/bundle.js',
+    // dir: 'dist',
     format: 'esm'
   }
 }
