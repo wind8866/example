@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "workbench.editor.wrapTabs": true,
+  "editor.formatOnPaste": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+}
