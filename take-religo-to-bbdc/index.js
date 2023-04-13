@@ -7,7 +7,7 @@ document.querySelectorAll('.word-cards .name').forEach((node) => {
 })
 JSON.stringify(arr)
 
-const pick = [
+const pick1 = [
   ['above', '以上'],
   ['alert', '警报'],
   ['among', '之间'],
@@ -29,10 +29,44 @@ const pick = [
   ['depend', '依赖'],
   ['describe', '描述'],
 ]
+const pick2 = [
+  ['affect', '影响'],
+  ['current', '当前'],
+  ['count', '计数'],
+  ['documentation', '文档'],
+  ['declare', '申报'],
+  ['either', '要么'],
+  ['empty', '空'],
+  ['entire', '整个'],
+  ['export', '出口'],
+  ['framework', '框架'],
+  ['happen', '发生'],
+  ['however', '然而'],
+  ['logical', '逻辑'],
+  ['lowercase', '小写'],
+  ['notice', '通知'],
+
+  ['together', '一起'],
+  ['transform', '变换'],
+  ['tutorial', '教程'],
+  ['nest', '巢'],
+  ['operator', '算子'],
+  ['piece', '一块'],
+  ['provide', '提供'],
+  ['recommend', '推荐'],
+  ['result', '结果'],
+  ['screen', '屏幕'],
+  ['strict', '严格'],
+  ['syntax', '语法'],
+  ['term', '术语'],
+  ['variable', '变量'],
+  ['when', '当'],
+]
 
 arr = [
+  ['unlike', '与'],
+  ['upwards', '向上'],
   ['acknowledgement', '确认'],
-  ['affect', '影响'],
   ['appearance', '外观'],
   ['approach', '方法'],
   ['cabbage', '卷心菜'],
@@ -48,18 +82,10 @@ arr = [
   ['convenience', '方便'],
   ['convention', '公约'],
   ['converter', '转炉'],
-  ['count', '计数'],
   ['curly', '卷曲'],
-  ['current', '当前'],
-  ['declare', '申报'],
-  ['documentation', '文档'],
-  ['either', '要么'],
   ['embed', '嵌入'],
-  ['empty', '空'],
-  ['entire', '整个'],
   ['escape', '逃脱'],
   ['exist', '存在'],
-  ['export', '出口'],
   ['express', '表达'],
   ['expression', '表达'],
   ['extract', '提取物'],
@@ -68,13 +94,10 @@ arr = [
   ['finally', '最后'],
   ['find', '找到'],
   ['fire', '火'],
-  ['framework', '框架'],
   ['garlic', '大蒜'],
-  ['happen', '发生'],
   ['hatch', '舱口'],
   ['height', '高度'],
   ['hook', '钩'],
-  ['however', '然而'],
   ['identify', '识别'],
   ['import', '进口'],
   ['include', '包括'],
@@ -91,21 +114,15 @@ arr = [
   ['link', '链接'],
   ['local', '当地'],
   ['logic', '逻辑'],
-  ['logical', '逻辑'],
   ['loop', '环'],
   ['lot', '很多'],
-  ['lowercase', '小写'],
   ['magenta', '品红'],
   ['manage', '管理'],
   ['meet', '满足'],
   ['more', '更多'],
   ['multiple', '多种'],
-  ['nest', '巢'],
-  ['notice', '通知'],
   ['object', '对象'],
-  ['operator', '算子'],
   ['optional', '任选'],
-  ['piece', '一块'],
   ['practice', '实践'],
   ['prefer', '宁愿'],
   ['prescribe', '订明'],
@@ -116,19 +133,15 @@ arr = [
   ['profile', '配置文件'],
   ['project', '项目'],
   ['prop', '道具'],
-  ['provide', '提供'],
   ['quote', '报价'],
   ['radius', '半径'],
-  ['recommend', '推荐'],
   ['reference', '参考'],
   ['regular', '定期'],
   ['rely', '依赖'],
   ['remember', '记得'],
   ['respond', '回应'],
   ['restrictive', '限制性'],
-  ['result', '结果'],
   ['rule', '规则'],
-  ['screen', '屏幕'],
   ['separate', '单独'],
   ['separately', '分别'],
   ['sibling', '同级'],
@@ -136,25 +149,15 @@ arr = [
   ['special', '特殊'],
   ['specify', '指定'],
   ['statement', '语句'],
-  ['strict', '严格'],
   ['such', '这样'],
   ['support', '支持'],
   ['survey', '调查'],
-  ['syntax', '语法'],
   ['take', '采取'],
   ['technique', '技术'],
-  ['term', '术语'],
   ['title', '标题'],
   ['toe', '脚趾'],
-  ['together', '一起'],
-  ['transform', '变换'],
-  ['tutorial', '教程'],
   ['unfamiliar', '陌生'],
   ['uniquely', '独特'],
-  ['unlike', '与'],
-  ['upwards', '向上'],
-  ['variable', '变量'],
-  ['when', '当'],
   ['which', '哪'],
   ['while', '而'],
   ['width', '宽度'],
@@ -165,8 +168,8 @@ arr = [
 
 // 二、https://bbdc.cn/newword
 // 打开控制台执行
-const currentCount = document.querySelectorAll('.wordlist-word').length
-const wordList = pick.map((w) => w[0])
+let currentAdded = pick2
+const wordList = currentAdded.map((w) => w[0])
 wordList.forEach(async (word) => {
   const newWordData = encodeURIComponent(
     JSON.stringify({
@@ -191,7 +194,6 @@ wordList.forEach(async (word) => {
 })
 console.log(currentCount)
 
-// 刷新页面计算本次增加了多少
-const addedCount =
-  document.querySelectorAll('.wordlist-word').length - currentCount
-console.log('本次增加', addedCount)
+// 三、计算出今日增加的
+// 刷新页面，向下翻页
+document.querySelector('.wordlist-item').querySelectorAll('.word-item').length
