@@ -30,23 +30,30 @@ function douListData(name) {
 function douInfoData() {
   const href = document.URL
   const reg = /https:\/\/movie.douban.com\/subject\/(\d+)\//
-  const doubanId = reg.exec(href)?.[1]
+  const id = reg.exec(href)?.[1]
   const score = Number(
-    document.querySelector('[property="v:average"]').innerText,
+    document.querySelector('[property="v:average"]')?.innerText ?? 0,
   )
   const commentCount = Number(
-    document.querySelector('[property="v:votes"]').innerText,
+    document.querySelector('[property="v:votes"]')?.innerText ?? 0,
   )
-  const year = document.querySelector(
-    '[property="v:initialReleaseDate"]',
-  ).innerText
-  const poster = document.querySelector('[rel="v:image"]').src
+  const year = document
+    .querySelector('h1 .year')
+    ?.innerText.replaceAll(/[()]/g, '')
+  const poster = document
+    .querySelector('[rel="v:image"]')
+    .src?.replace('s_ratio_poster', 'row')
+  const name =
+    document.querySelector('[property="v:itemreviewed"]')?.innerText ?? ''
   const obj = {
-    doubanId,
+    id,
+    name,
     score,
     commentCount,
     year,
     poster,
   }
   console.log(JSON.stringify(obj))
+  copy(JSON.stringify(obj))
 }
+douInfoData()
