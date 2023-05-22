@@ -27,33 +27,30 @@ function douListData(name) {
 
 // 浏览器控制台，获取数据
 // https://movie.douban.com/subject/3205445/
-function douInfoData() {
-  const href = document.URL
-  const reg = /https:\/\/movie.douban.com\/subject\/(\d+)\//
-  const id = reg.exec(href)?.[1]
-  const score = Number(
-    document.querySelector('[property="v:average"]')?.innerText ?? 0,
-  )
-  const commentCount = Number(
-    document.querySelector('[property="v:votes"]')?.innerText ?? 0,
-  )
-  const year = document
-    .querySelector('h1 .year')
-    ?.innerText.replaceAll(/[()]/g, '')
-  const poster = document
-    .querySelector('[rel="v:image"]')
-    .src?.replace('s_ratio_poster', 'row')
-  const name =
-    document.querySelector('[property="v:itemreviewed"]')?.innerText ?? ''
-  const obj = {
-    id,
-    name,
-    score,
-    commentCount,
-    year,
-    poster,
-  }
-  console.log(JSON.stringify(obj))
-  copy(JSON.stringify(obj))
+const href = document.URL
+const reg = /https:\/\/movie.douban.com\/subject\/(\d+)\//
+const id = reg.exec(href)?.[1]
+const score = Number(
+  document.querySelector('[property="v:average"]')?.innerText ?? 0,
+)
+const commentCount = Number(
+  document.querySelector('[property="v:votes"]')?.innerText ?? 0,
+)
+const year = document
+  .querySelector('h1 .year')
+  ?.innerText.replaceAll(/[()]/g, '')
+const poster = document
+  .querySelector('[rel="v:image"]')
+  .src?.replace('s_ratio_poster', 'row')
+const name =
+  document.querySelector('[property="v:itemreviewed"]')?.innerText ?? ''
+const obj = {
+  id,
+  name,
+  score,
+  commentCount,
+  year,
+  poster,
 }
-douInfoData()
+console.log(JSON.stringify(obj))
+copy(JSON.stringify(obj))
