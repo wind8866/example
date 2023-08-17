@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
+  <RouterView />
   <header>
     <img
       alt="Vue logo"
@@ -20,11 +21,10 @@ import HelloWorld from "./components/HelloWorld.vue";
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/hello">Hello</RouterLink>
+        <RouterLink to="/tree">Tree</RouterLink>
       </nav>
     </div>
   </header>
-
-  <RouterView />
 </template>
 
 <style scoped>
