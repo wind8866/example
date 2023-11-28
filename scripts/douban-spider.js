@@ -45,11 +45,11 @@ const poster = document
 const name =
   document.querySelector('[property="v:itemreviewed"]')?.innerText ?? ''
 const obj = {
-  id,
+  id: Number(id),
   name,
   score,
   commentCount,
-  year,
+  year: Number(year),
   poster,
 }
 console.log(JSON.stringify(obj))
