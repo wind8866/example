@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hash</title>
+  </head>
+  <body>
+    <script>
+      const hashValue = (val) =>
+        crypto.subtle
+          .digest('SHA-256', new TextEncoder('utf-8').encode(val))
+          .then((h) => {
+            let hexes = [],
+              view = new DataView(h)
+            for (let i = 0; i < view.byteLength; i += 4)
+              hexes.push(
+                ('00000000' + view.getUint32(i).toString(16)).slice(-8),
+              )
+            return hexes.join('')
+          })
+
+      hashValue(
+        JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } }),
+      ).then(console.log)
+      // '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'
+
+      // TextEncoder.encode()
+      // 接受一个字符串作为输入，返回一个包含 UTF-8 编码的文本的 Uint8Array。
+
+      // Crypto.subtle
+      // 返回一个SubtleCrypto
+      // SubtleCrypto.digest()
+      // 返回一个 Promise，会兑现通过参数中给定的算法和文本生成的摘要。
+
+      // 根据sha-256算法生成256位长度的二进制（32字节）
+      // 每4x8位(4字节)读一次，将其转化为32位整数，再以16进制表示，不足位数前面补0，成8个字符
+      // 即用8字符表示4字节
+      // 32/4*8=64位，所以最后有64位数
+    </script>
+  </body>
+</html>
