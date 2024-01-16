@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "liuzhen <liuzhen1010xyz@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node main.js"
+  },
   "dependencies": {
     "express": "^4.17.1"
   }

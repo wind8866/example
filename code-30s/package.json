@@ -1,0 +1,9 @@
+{
+  "name": "code-30s",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node node/2.file-server/index.mjs"
+  }
+}
