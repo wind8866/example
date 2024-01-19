@@ -5,5 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node node/2.file-server/index.mjs"
+  },
+  "dependencies": {
+    "tsx": "^4.7.0"
   }
 }
